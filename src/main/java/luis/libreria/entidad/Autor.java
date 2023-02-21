@@ -1,6 +1,5 @@
 package luis.libreria.entidad;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +20,4 @@ public class Autor implements Serializable {
     long id;
     String nombre;
     boolean alta;
-
-
 }

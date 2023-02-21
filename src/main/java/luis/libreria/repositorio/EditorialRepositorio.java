@@ -1,7 +1,6 @@
 package luis.libreria.repositorio;
 
 import luis.libreria.entidad.Editorial;
-import luis.libreria.entidad.Libro;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

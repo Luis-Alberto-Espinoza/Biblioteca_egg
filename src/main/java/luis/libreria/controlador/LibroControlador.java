@@ -2,7 +2,6 @@ package luis.libreria.controlador;
 
 import luis.libreria.entidad.Autor;
 import luis.libreria.entidad.Editorial;
-import luis.libreria.entidad.Libro;
 import luis.libreria.servicio.AutorServicio;
 import luis.libreria.servicio.EditorialServicio;
 import luis.libreria.servicio.LibroServicio;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
