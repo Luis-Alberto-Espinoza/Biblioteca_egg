@@ -21,4 +21,12 @@ public class EditorialServicio {
         return editorialRepositorio.editorialXid(id);
 
     }
+    public void GuardarEditorial(String nombre){
+        Editorial newEditorial = new Editorial();
+        newEditorial.setNombre(nombre);
+        newEditorial.setAlta(true);
+
+        editorialRepositorio.save(newEditorial);
+
+    }
 }
