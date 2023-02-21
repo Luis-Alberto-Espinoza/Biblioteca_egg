@@ -28,14 +28,21 @@ public class EditorialControlador {
     public String index_editorial(ModelMap model){
         System.out.println("--index editorial ");
 
-        return "formulario_alta_editorial";
+        model.addAttribute("editorial","editorial");
+        model.addAttribute("formulario","Formulario alta Editorial");
+        model.addAttribute("tituloFormulario","Dar de alta al editorial");
+        model.addAttribute("action","/editorial/alta");
+        model.addAttribute("lable1","Nombre de la Editorial");
+        model.addAttribute("boton", "Registrar Editorial");
+        return "alta";
     }
 
-    @GetMapping("/alta_editorial")
+    @GetMapping("/alta")
     public String alta_editorial(ModelMap model, @RequestParam String nombre){
         System.out.println( "----34 alta_editorial");
         LocalDate actual = LocalDate.now();
         editorialServicio.GuardarEditorial(nombre);
+
 
         model.addAttribute("titulo", "genial fue recibido");
         return "exito";

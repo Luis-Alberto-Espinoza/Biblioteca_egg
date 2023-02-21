@@ -21,4 +21,13 @@ public class AutorServicio {
     public Autor autorXid(long id){
         return autorRepositorio.autorXid(id);
     }
+
+    public void GuardarAutor(String nombre) {
+        Autor autorNew = new Autor();
+        autorNew.setNombre(nombre);
+        autorNew.setAlta(true);
+
+        autorRepositorio.save(autorNew);
+
+    }
 }

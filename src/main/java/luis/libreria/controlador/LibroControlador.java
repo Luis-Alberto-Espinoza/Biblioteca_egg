@@ -29,20 +29,29 @@ public class LibroControlador {
     @Autowired
     EditorialServicio editorialServicio;
 
-    @GetMapping("/index_libro")
+    @GetMapping("/")
     public String CargarDatosLibro(ModelMap model) {
         libroServicio.buscarUno(1022l);
         libroServicio.buscarTodos();
         List<Editorial> editoriales = editorialServicio.BuscarEditoriales();
+        List<Autor> autores = autorServicio.buscarAutores();
+
+
+        model.addAttribute("autores", autores);
         model.addAttribute("editoriales", editoriales);
 
-        List<Autor> autores = autorServicio.buscarAutores();
-        model.addAttribute("autores", autores);
+        model.addAttribute("alta_libro","alta_libro");
+        model.addAttribute("formulario","Formulario alta Libro");
+        model.addAttribute("tituloFormulario","Dar de alta al Libro");
+        model.addAttribute("action","/libro/alta");
+        model.addAttribute("boton", "Registrar Libro");
 
-        return "formulario_alta_libro";
+
+
+        return "alta";
     }
 
-    @GetMapping(value = "/alta_libro")
+    @GetMapping(value = "/alta")
     public String nuevoLibro(ModelMap model,
                              @RequestParam String titulo,
                              @RequestParam String isbn,
