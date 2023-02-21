@@ -17,7 +17,8 @@ public  class LibroControlador {
 
     @GetMapping("/index_libro")
     public  String CargarDatosLibro(ModelMap model){
-
+        libroServicio.buscarUno(1022l);
+        libroServicio.buscarTodos();
         return "formulario_alta_libro";
     }
 
@@ -28,6 +29,9 @@ public  class LibroControlador {
                              @RequestParam Integer ejemplares
             ){
         System.out.println("llegue a el alta libro");
-        return "index_libro";
+        System.out.println("esto tiene este parametro  titulo "+titulo);
+
+        model.addAttribute("titulo", "genial fue recibido");
+        return "exito";
     }
 }
