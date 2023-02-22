@@ -24,14 +24,12 @@ public class LibroServicio {
     @Autowired
     public EditorialRepositorio editorialRepositorio;
 
-    public void buscarUno(Long id) {
+    public Libro buscarUno(Long id) {
         System.out.println("llegue a lbserv ");
-        System.out.println("este es el id");
+        System.out.println("este es el id  "+id );
 
-        Optional<Libro> libro = libroRepositorio.findById(id);
-        System.out.println("este es el resultado titulo " + libro.get().getTitulo());
-        System.out.println(libro.get().getIsbn() + "< es el isbn del 1022");
-
+       Optional<Libro> libro = libroRepositorio.findById(id);
+return libro.get();
     }
 
     public void buscarTodos() {
@@ -56,11 +54,23 @@ public class LibroServicio {
         libroRepositorio.save(libro);
 
     }
-    public void ModificarLibro() {
-
+    public void ModificarLibro(Long id, String titulo, String isbn,
+                               LocalDate anio, Integer ejemplares,
+                               Editorial editorial, Autor autor) {
+        Libro libro = buscarUno(id);
+        libro.setTitulo(titulo);
+        libro.setAnio(anio);
+        libro.setIsbn(isbn);
+        libro.setEjemplares(ejemplares);
+        libro.setEditorial(editorial);
+        libro.setAutor(autor);
+        libroRepositorio.save(libro);
     }
 
-    public void darBajaLibro(String id) {
+    public void darBajaLibro(Long id) {
+        Libro libro = buscarUno(id);
+        libro.setAlta(false);
+        libroRepositorio.save(libro);
 
     }
 

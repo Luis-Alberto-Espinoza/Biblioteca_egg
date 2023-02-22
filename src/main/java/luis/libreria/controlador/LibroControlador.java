@@ -2,6 +2,7 @@ package luis.libreria.controlador;
 
 import luis.libreria.entidad.Autor;
 import luis.libreria.entidad.Editorial;
+import luis.libreria.entidad.Libro;
 import luis.libreria.servicio.AutorServicio;
 import luis.libreria.servicio.EditorialServicio;
 import luis.libreria.servicio.LibroServicio;
@@ -29,10 +30,19 @@ public class LibroControlador {
     @Autowired
     EditorialServicio editorialServicio;
 
-    @GetMapping("/")
-    public String CargarDatosLibro(ModelMap model) {
-        libroServicio.buscarUno(1022l);
-        libroServicio.buscarTodos();
+
+    @GetMapping("/tabla")
+    public String tablaLibros(ModelMap model) {
+        List<Libro> libros = libroServicio.libroRepositorio.findAll();
+        System.out.println(" 37 " + libros.size());
+        System.out.println(libros.get(libros.size() - 1).getAutor().getNombre());
+        model.put("objetoAiterar", libros);
+        return "tabla";
+    }
+
+
+    @GetMapping("/pre_alta")
+    public String CargarDatosLibro(ModelMap model, Long id) {
         List<Editorial> editoriales = editorialServicio.BuscarEditoriales();
         List<Autor> autores = autorServicio.buscarAutores();
 
@@ -40,12 +50,11 @@ public class LibroControlador {
         model.addAttribute("autores", autores);
         model.addAttribute("editoriales", editoriales);
 
-        model.addAttribute("alta_libro","alta_libro");
-        model.addAttribute("formulario","Formulario alta Libro");
-        model.addAttribute("tituloFormulario","Dar de alta al Libro");
-        model.addAttribute("action","/libro/alta");
+        model.addAttribute("alta_libro", "alta_libro");
+        model.addAttribute("formulario", "Formulario alta Libro");
+        model.addAttribute("tituloFormulario", "Dar de alta al Libro");
+        model.addAttribute("action", "/libro/alta");
         model.addAttribute("boton", "Registrar Libro");
-
 
 
         return "alta";
@@ -64,9 +73,61 @@ public class LibroControlador {
         Editorial editorial1 = editorialServicio.BuscarEditorialxId(Long.parseLong(editorial));
         Autor autor1 = autorServicio.autorXid(Long.parseLong(autor));
 
-        libroServicio.crearLibro(titulo,isbn, anio,ejemplares,editorial1,autor1);
+        libroServicio.crearLibro(titulo, isbn, anio, ejemplares, editorial1, autor1);
 
         model.addAttribute("titulo", "genial fue recibido");
+        return "exito";
+    }
+
+    @GetMapping("/baja")
+    public String BajaLibro(ModelMap model, Long id) {
+
+        libroServicio.darBajaLibro(id);
+        model.addAttribute("titulo", "genial fue dado de baja");
+        return "exito";
+    }
+
+    @GetMapping("/pre_update")
+    public String pre_update(ModelMap model, Long id) {
+
+        Libro libro = libroServicio.buscarUno(id);
+
+        List<Editorial> editoriales = editorialServicio.BuscarEditoriales();
+        List<Autor> autores = autorServicio.buscarAutores();
+
+
+        model.addAttribute("autores", autores);
+        model.addAttribute("editoriales", editoriales);
+
+        model.put("libro", libro);
+        model.addAttribute("selected_autor", libro.getAutor().getNombre());
+        model.addAttribute("selected_editorial", libro.getEditorial().getNombre());
+
+        model.addAttribute("alta_libro", "alta_libro");
+        model.addAttribute("formulario", "Formulario editar Libro");
+        model.addAttribute("tituloFormulario", "Modificar datos de un Libro");
+        model.addAttribute("action", "/libro/update");
+        model.addAttribute("boton", "Actualizar Libro");
+
+
+        return "update";
+    }
+
+    @GetMapping("/update")
+    public String updateLibro(ModelMap model, Long id,
+                              @RequestParam String titulo,
+                              @RequestParam String isbn,
+                              @RequestParam("anio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate anio,
+                              @RequestParam Integer ejemplares,
+                              @RequestParam String editorial,
+                              @RequestParam String autor
+
+    ) {
+        Autor autor1 = autorServicio.autorXid(Long.parseLong(autor));
+        Editorial editorial1 = editorialServicio.BuscarEditorialxId(Long.parseLong(editorial));
+        System.out.println(" 90 lc edi + autor" + editorial1.getId() + "  " + autor1.getNombre());
+         libroServicio.ModificarLibro(id,titulo, isbn, anio, ejemplares, editorial1, autor1);
+        model.addAttribute("titulo", "genial fue el libro modificado");
         return "exito";
     }
 }
