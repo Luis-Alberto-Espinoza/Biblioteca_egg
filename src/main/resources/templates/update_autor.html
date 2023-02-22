@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es" xml:lang="es">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${formulario}"></title>
+</head>
+<body>
+
+<section>
+    <div class="container" style="padding-top: 100px">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${tituloFormulario}"></h2>
+                    <form th:action="${action}" method="GET" enctype="multipart/form-data">
+
+
+<!--                        <div th:if="${alta_libro != null}">-->
+<!--                            <input type="hidden" name="id" th:value="${libro.id}">-->
+                            <label>ID Autor</label>
+                            <input type="text" class="form-control" name="id" th:value="${objetoIterador.id}"/>
+
+                            <label>Nombre</label>
+                            <input type="text" class="form-control" name="nombre" th:value="${objetoIterador.nombre}"/>
+
+
+                            <label>Estado</label>
+                            <input type="text" class="form-control" name="alta" th:value="${objetoIterador.alta}"/>
+
+<!--                        </div>-->
+
+                        <br/>
+                        <button type="submit" class="btn btn-primary" th:text="${boton}"></button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

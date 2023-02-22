@@ -29,4 +29,17 @@ public class EditorialServicio {
         editorialRepositorio.save(newEditorial);
 
     }
+
+    public void darBajaEditorial(Long id) {
+        Editorial editorial = BuscarEditorialxId(id);
+        editorial.setAlta(false);
+        editorialRepositorio.save(editorial);
+    }
+
+    public void actualizar(Long id, String nombre) {
+        Editorial editorial = BuscarEditorialxId(id);
+        editorial.setNombre(nombre);
+        editorialRepositorio.save(editorial);
+
+    }
 }

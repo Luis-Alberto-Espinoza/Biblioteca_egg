@@ -67,7 +67,7 @@ return libro.get();
         libroRepositorio.save(libro);
     }
 
-    public void darBajaLibro(Long id) {
+    public void bajaLibro(Long id) {
         Libro libro = buscarUno(id);
         libro.setAlta(false);
         libroRepositorio.save(libro);

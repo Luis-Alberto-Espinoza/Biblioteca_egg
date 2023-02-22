@@ -30,4 +30,17 @@ public class AutorServicio {
         autorRepositorio.save(autorNew);
 
     }
+    public void actualizar(Long id, String nombre) {
+        Autor autor = autorRepositorio.autorXid(id);
+        autor.setNombre(nombre);
+        autorRepositorio.save(autor);
+
+    }
+
+    public void bajaAutor(Long id) {
+        Autor autor = autorRepositorio.autorXid(id);
+        autor.setAlta(false);
+        autorRepositorio.save(autor);
+
+    }
 }

@@ -34,8 +34,6 @@ public class LibroControlador {
     @GetMapping("/tabla")
     public String tablaLibros(ModelMap model) {
         List<Libro> libros = libroServicio.libroRepositorio.findAll();
-        System.out.println(" 37 " + libros.size());
-        System.out.println(libros.get(libros.size() - 1).getAutor().getNombre());
         model.put("objetoAiterar", libros);
         return "tabla";
     }
@@ -67,9 +65,7 @@ public class LibroControlador {
                              @RequestParam("anio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate anio,
                              @RequestParam Integer ejemplares,
                              @RequestParam String editorial,
-                             @RequestParam String autor
-
-    ) {
+                             @RequestParam String autor) {
         Editorial editorial1 = editorialServicio.BuscarEditorialxId(Long.parseLong(editorial));
         Autor autor1 = autorServicio.autorXid(Long.parseLong(autor));
 
@@ -82,7 +78,7 @@ public class LibroControlador {
     @GetMapping("/baja")
     public String BajaLibro(ModelMap model, Long id) {
 
-        libroServicio.darBajaLibro(id);
+        libroServicio.bajaLibro(id);
         model.addAttribute("titulo", "genial fue dado de baja");
         return "exito";
     }
@@ -120,12 +116,9 @@ public class LibroControlador {
                               @RequestParam("anio") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate anio,
                               @RequestParam Integer ejemplares,
                               @RequestParam String editorial,
-                              @RequestParam String autor
-
-    ) {
+                              @RequestParam String autor) {
         Autor autor1 = autorServicio.autorXid(Long.parseLong(autor));
         Editorial editorial1 = editorialServicio.BuscarEditorialxId(Long.parseLong(editorial));
-        System.out.println(" 90 lc edi + autor" + editorial1.getId() + "  " + autor1.getNombre());
          libroServicio.ModificarLibro(id,titulo, isbn, anio, ejemplares, editorial1, autor1);
         model.addAttribute("titulo", "genial fue el libro modificado");
         return "exito";
