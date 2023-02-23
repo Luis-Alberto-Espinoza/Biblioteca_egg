@@ -10,8 +10,8 @@
 <section>
     <div class="container" style="padding-top: 100px">
         <div class="btn">-->
-            <a th:href="@{/editorial/}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
-                Editorial!</a>
+            <a th:href="@{/cliente/}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
+                Cliente!</a>
         </div>
         <div class="row align-items-center">
             <h2 class="display-4" th:text="${tituloFormulario}"></h2>
@@ -23,26 +23,34 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">ID Editorial</th>
+                                <th scope="col">ID Cliente</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">dni</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">ALTA</th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="objetoAiterar : ${objetoAiterar}">
-                                <div th:if="${objetoAiterar.alta == true}" >
-                                    <td scope="row" th:text="${objetoAiterar.id}">
-                                    </th>
-                                    <td class="mayus" scope="row" th:text="${objetoAiterar.nombre}">
-                                    </th>
+                                <td scope="row" th:text="${objetoAiterar.id}">
+                                </th>
+                                <td class="mayus" scope="row" th:text="${objetoAiterar.nombre}">
+                                </th>
+                                <td class="mayustt" scope="row" th:text="${objetoAiterar.apellido}">
+                                </th>
+                                <td class="mayustt" scope="row" th:text="${objetoAiterar.dni}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.telefono}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.alta}">
+                                </th>
 
-
-                                    <td>
-                                        <a th:href="@{/editorial/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
-                                        <a th:href="@{/editorial/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
-                                    </td>
-                                </div>
-
+                                <td>
+                                    <a th:href="@{/cliente/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
+                                    <a th:href="@{/cliente/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>

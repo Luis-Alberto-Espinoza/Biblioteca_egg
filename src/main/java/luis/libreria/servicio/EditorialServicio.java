@@ -15,19 +15,15 @@ public class EditorialServicio {
 
     public List<Editorial> BuscarEditoriales(){
         return editorialRepositorio.findAll();
-
     }
     public Editorial BuscarEditorialxId(Long id){
         return editorialRepositorio.editorialXid(id);
-
     }
     public void GuardarEditorial(String nombre){
         Editorial newEditorial = new Editorial();
         newEditorial.setNombre(nombre);
         newEditorial.setAlta(true);
-
         editorialRepositorio.save(newEditorial);
-
     }
 
     public void darBajaEditorial(Long id) {
@@ -40,6 +36,5 @@ public class EditorialServicio {
         Editorial editorial = BuscarEditorialxId(id);
         editorial.setNombre(nombre);
         editorialRepositorio.save(editorial);
-
     }
 }

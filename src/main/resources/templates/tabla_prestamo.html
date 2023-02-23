@@ -10,8 +10,8 @@
 <section>
     <div class="container" style="padding-top: 100px">
         <div class="btn">-->
-            <a th:href="@{/editorial/}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
-                Editorial!</a>
+            <a th:href="@{/prestamo/pre_alta}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
+                prestamo!</a>
         </div>
         <div class="row align-items-center">
             <h2 class="display-4" th:text="${tituloFormulario}"></h2>
@@ -23,31 +23,45 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">ID Editorial</th>
-                                <th scope="col">Nombre</th>
+                                <th scope="col">ID prestamo</th>
+                                <th scope="col">Fecha Prestamo</th>
+                                <th scope="col">Fecha Devoucion</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">ID Libro</th>
+                                <th scope="col">Titulo del Libro</th>
+                                <th scope="col">ID CLIENTE </th>
+                                <th scope="col">Apellido del CLIENTE </th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="objetoAiterar : ${objetoAiterar}">
-                                <div th:if="${objetoAiterar.alta == true}" >
-                                    <td scope="row" th:text="${objetoAiterar.id}">
-                                    </th>
-                                    <td class="mayus" scope="row" th:text="${objetoAiterar.nombre}">
-                                    </th>
-
-
-                                    <td>
-                                        <a th:href="@{/editorial/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
-                                        <a th:href="@{/editorial/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
-                                    </td>
-                                </div>
-
+                                <td scope="row" th:text="${objetoAiterar.id}">
+                                </th>
+                                <td class="mayus" scope="row" th:text="${objetoAiterar.prestamo}">
+                                </th>
+                                <td class="mayustt" scope="row" th:text="${objetoAiterar.devolucion}">
+                                </th>
+                                <td class="mayustt" scope="row" th:text="${objetoAiterar.alta}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.libro.id}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.libro.titulo}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.cliente.id}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.cliente.apellido}">
+                                </th>
+                                <td>
+                                    <a th:href="@{/prestamo/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
+                                    <a th:href="@{/prestamo/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
 
+<!--                    <h2 class="display-4" th:text="${tituloFormulario}"></h2>-->
                     <form th:action="${action}" method="GET" enctype="multipart/form-data">
 
 
@@ -57,7 +71,7 @@
 
                         </div>
 
-                        <div th:if="${alta_libro != null}">
+                        <div th:if="${alta_prestamo != null}">
                             <label>Título</label>
                             <input type="text" class="form-control" name="titulo" th:value="${titulo}"/>
 
@@ -89,10 +103,10 @@
                                 ></option>
                             </select>
 
+                            <br/>
+                            <button type="submit" class="btn btn-primary" th:text="${boton}"></button>
                         </div>
 
-                        <br/>
-                        <button type="submit" class="btn btn-primary" th:text="${boton}"></button>
                     </form>
 
                 </div>

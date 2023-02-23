@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller
-
 @RequestMapping(value = "/libro")
 public class LibroControlador {
     @Autowired
