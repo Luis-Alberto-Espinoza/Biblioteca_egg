@@ -23,6 +23,7 @@
                             <tr>
                                 <th scope="col">ID Editorial</th>
                                 <th scope="col">Nombre</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                             </thead>
@@ -33,7 +34,8 @@
                                     </th>
                                     <td class="mayus" scope="row" th:text="${objetoAiterar.nombre}">
                                     </th>
-
+                                    <td class="mayus" scope="row" th:text="${objetoAiterar.nombre}">
+                                    </th>
                                     <td>
                                         <a th:href="@{${urlEdit}(id=${objetoAiterar.id})}"
                                            class="btn btn-danger">Editar</a>

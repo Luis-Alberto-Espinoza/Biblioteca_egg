@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es" xml:lang="es">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo_html}"></title>
+</head>
+<body>
+
+<section>
+    <div class="container" style="padding-top: 100px">
+        <div class="btn">-->
+            <a th:href="@{${urlAdd}}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega un
+                Cliente</a>
+        </div>
+        <div class="row align-items-center">
+            <h2 class="display-4" th:text="${tituloFormulario}"></h2>
+
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+
+                    <div class="row align-items-center">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">ID Cliente</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Apellido</th>
+                                <th scope="col">dni</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">ALTA</th>
+                                <th scope="col">ACCIONES</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="objetoAiterar : ${objetoAiterar}">
+                                <td scope="row" th:text="${objetoAiterar.id}">
+                                </th>
+                                <td class="mayus" scope="row" th:text="${objetoAiterar.nombre}">
+                                </th>
+                                <td class="mayustt" scope="row" th:text="${objetoAiterar.apellido}">
+                                </th>
+                                <td class="mayustt" scope="row" th:text="${objetoAiterar.dni}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.telefono}">
+                                </th>
+                                <td scope="row" th:text="${objetoAiterar.alta}">
+                                </th>
+
+                                <td>
+                                    <a th:href="@{${urlEdit}(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
+                                    <a th:href="@{${urlDelete}(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

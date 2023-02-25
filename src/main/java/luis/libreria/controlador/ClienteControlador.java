@@ -17,29 +17,20 @@ import java.util.List;
 @Controller
 @RequestMapping("/cliente")
 public class ClienteControlador {
-    @Autowired
-    LibroServicio libroServicio;
-
-    @Autowired
-    AutorServicio autorServicio;
-
-    @Autowired
-    EditorialServicio editorialServicio;
 
     @Autowired
     ClienteServicio clienteServicio;
 
-    @GetMapping("/todos")
+    @GetMapping("/tabla")
     public String todos(ModelMap model) {
         List<Cliente> clientes = clienteServicio.todos();
         model.put("objetoAiterar", clientes);
-
-        model.addAttribute("formulario", "Tabla de clientes");
-        model.addAttribute("tituloFormulario", "Gestionar Clientes");
-        model.addAttribute("action", "/cliente/alta");
-
-
-        return "tabla_clientes";
+        model.addAttribute("tituloFormulario", "Todos los Clientes");
+        model.addAttribute("titulo_html", "Lista de Clintes");
+        model.addAttribute("urlDelete", "/cliente/baja");
+        model.addAttribute("urlEdit", "/cliente/pre_update");
+        model.addAttribute("urlAdd", "/cliente/alta");
+        return "cliente_tabla";
     }
 
     @GetMapping("/alta")
@@ -48,6 +39,8 @@ public class ClienteControlador {
         model.addAttribute("formulario", "Agrega Cliente");
         model.addAttribute("tituloFormulario", "Agregar un nuevo Cliente");
         model.addAttribute("action", "/cliente/save");
+        model.addAttribute("titulo_html", "Lista de Clientes");
+        model.addAttribute("boton", "Agrega un Cliente");
         return "cliente_formulario";
     }
 
@@ -59,7 +52,7 @@ public class ClienteControlador {
                        @RequestParam String telefono
     ) {
         clienteServicio.guardarCliente(nombre, apellido, dni, telefono);
-        model.addAttribute("titulo", "genial fue modificado la editorial");
+        model.addAttribute("titulo", "genial fue guardado en nuevo cliente");
         return "exito";
     }
 
@@ -69,16 +62,16 @@ public class ClienteControlador {
         Cliente cliente = clienteServicio.buscarXid(id);
 
         model.put("objetoIterador", cliente);
-
+        model.addAttribute("titulo_html", "Lista de Clientes");
         model.addAttribute("update", "update");
         model.addAttribute("formulario", "Formulario Cliente");
         model.addAttribute("tituloFormulario", "Gestionar Cliente");
-        model.addAttribute("action", "/cliente/update_cliente");
+        model.addAttribute("action", "/cliente/update");
         model.addAttribute("boton", "Actualizar Cliente");
         return "cliente_formulario";
     }
 
-    @GetMapping("/update_cliente")
+    @GetMapping("/update")
     public String actualizarCliente(ModelMap model,
                                     @RequestParam long id,
                                     @RequestParam String nombre,
@@ -97,24 +90,9 @@ public class ClienteControlador {
 
         System.out.println("update_cliente llegue");
         clienteServicio.actualizar(id, nombre, apellido, dni, telefono, estado);
-        // model.addAttribute("titulo", "genial fue modificado el autor");
         model.addAttribute("titulo", "genial fue modificado la editorial");
         return "exito";
     }
-
-    //            baja
-//    alta
-//    @GetMapping("/alta")
-//    public String alta_cliente(ModelMap model,
-//                               @RequestParam String nombre,
-//                               @RequestParam String apellido,
-//                               @RequestParam long dni,
-//                               @RequestParam String telefono
-//    ) {
-//        clienteServicio.guardarCliente(nombre, apellido, dni, telefono);
-//        model.addAttribute("titulo", "genial fue dado de alta al cliente");
-//        return "exito";
-//    }
 
     @GetMapping("/baja")
     public String bajaCliente(Long id, ModelMap model) {
@@ -122,6 +100,4 @@ public class ClienteControlador {
         model.addAttribute("titulo", "genial fue dado de baja el cliente");
         return "exito";
     }
-
-
 }
