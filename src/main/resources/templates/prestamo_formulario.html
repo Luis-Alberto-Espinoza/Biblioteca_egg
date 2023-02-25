@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="es" xml:lang="es">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo_html}"></title>
+</head>
+<body>
+
+<section>
+    <div class="container" style="padding-top: 100px">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 order-lg-1">
+                <div class="p-5">
+                    <h2 class="display-4" th:text="${tituloFormulario}"></h2>
+                    <form th:action="${action}" method="GET" enctype="multipart/form-data">
+
+
+                        <div th:if="${alta != null}">
+                            <label>Fecha de Prestamo</label>
+                            <input type="date" class="form-control" name="prestamo" th:text="${prestamo}"/>
+
+                            <label>Fecha de Devolucion</label>
+                            <input type="date" class="form-control" name="devolucion" th:text="${devolucion}"/>
+
+                            <label>ID Libro</label>
+                            <input type="text" class="form-control" name="id_libro" th:text="${id_libro}"/>
+
+                            <label>ID Cliente</label>
+                            <input type="text" class="form-control" name="id_cliente" th:text="${id_cliente}"/>
+                            <br/>
+
+                        </div>
+
+                        <div name="modificar" th:if="${update != null}">
+                            <label>ID Prestamo</label>
+                            <input type="text" class="form-control" name="id" th:value="${objetoIterador.id}"/>
+
+                            <label>Fecha de Prestamo</label>
+                            <input type="date" class="form-control" name="prestamo" th:value="${objetoIterador.prestamo}"/>
+
+                            <label>Fecha de Devolucion</label>
+                            <input type="date" class="form-control" name="devolucion" th:value="${objetoIterador.devolucion}"/>
+
+                            <label>Estado</label>
+                            <input type="text" class="form-control" name="alta" th:value="${objetoIterador.alta}"/>
+
+                            <label>ID Libro</label>
+                            <input type="text" class="form-control" name="id_libro" th:value="${objetoIterador.libro.id}"/>
+
+                            <label>ID Cliente</label>
+                            <input type="text" class="form-control" name="id_cliente" th:value="${objetoIterador.cliente.id}"/>
+                            <br/>
+
+                        </div>
+                        <button type="submit" class="btn btn-primary" th:text="${boton}"></button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
