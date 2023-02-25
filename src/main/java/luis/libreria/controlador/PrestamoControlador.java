@@ -75,8 +75,8 @@ public class PrestamoControlador {
 
     @GetMapping("/alta")
     public String alta_Prestamo(ModelMap model,
-                                @RequestParam LocalDate prestamo,
-                                @RequestParam LocalDate devolucion,
+                                @RequestParam("prestamo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate prestamo,
+                                @RequestParam("devolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate devolucion,
                                 @RequestParam String id_libro,
                                 @RequestParam String id_cliente
     ) {

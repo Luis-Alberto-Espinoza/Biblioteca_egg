@@ -47,6 +47,9 @@ public class ClienteServicio {
     public void guardarCliente(String nombre, String apellido, long dni, String telefono) {
         Cliente newCliente = new Cliente();
         newCliente.setNombre(nombre);
+        newCliente.setApellido(apellido);
+        newCliente.setDni(dni);
+        newCliente.setTelefono(telefono);
         newCliente.setAlta(true);
         clienteRepositorio.save(newCliente);
     }

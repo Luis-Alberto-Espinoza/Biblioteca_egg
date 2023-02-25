@@ -10,14 +10,12 @@
 <section>
     <div class="container" style="padding-top: 100px">
         <div class="btn">-->
-            <a th:href="@{/libro/pre_alta}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega una
+            <a th:href="@{/libro/pre_alta}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega un
                 Libro!</a>
         </div>
         <div class="row align-items-center">
-
             <div class="col-lg-6 order-lg-1">
                 <div class="p-5">
-
                     <div class="row align-items-center">
                         <table class="table table-hover">
                             <thead>
@@ -31,6 +29,7 @@
                                 <th scope="col">ALTA</th>
                                 <th scope="col">AUTOR</th>
                                 <th scope="col">EDITORIAL</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">ACCIONES</th>
                             </tr>
                             </thead>
@@ -54,7 +53,8 @@
                                 </th>
                                 <td scope="row" th:text="${objetoAiterar.editorial.nombre}">
                                 </th>
-
+                                <td scope="row" th:text="${objetoAiterar.alta}">
+                                </th>
                                 <td>
                                     <a th:href="@{/libro/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
                                     <a th:href="@{/libro/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
@@ -63,60 +63,10 @@
                             </tbody>
                         </table>
                     </div>
-
-                    <h2 class="display-4" th:text="${tituloFormulario}"></h2>
-                    <form th:action="${action}" method="GET" enctype="multipart/form-data">
-
-
-                        <div th:if="${editorial != null}">
-                            <label th:text="${lable1}"></label>
-                            <input type="text" class="form-control" name="nombre" th:value="${nombre}"/>
-
-                        </div>
-
-                        <div th:if="${alta_libro != null}">
-                            <label>Título</label>
-                            <input type="text" class="form-control" name="titulo" th:value="${titulo}"/>
-
-                            <label>ISBN</label>
-                            <input type="text" class="form-control" name="isbn" th:value="${isbn}"/>
-
-
-                            <label>Año de Publicación</label>
-                            <input type="date" class="form-control" name="anio" th:value="${anio}"/>
-
-                            <label>Ejemplares</label>
-                            <input type="number" class="form-control" name="ejemplares" th:value="${ejemplares}"/>
-
-                            <select name="editorial">
-                                <option>Selecccionar Editoriales</option>
-                                <option th:each = "editorial : ${editoriales}"
-                                        th:value = "${editorial.id}"
-                                        th:text = "${editorial.nombre}"
-                                ></option>
-
-
-                            </select>
-
-                            <select name="autor">
-                                <option>Selecccionar Autores</option>
-                                <option th:each = "autor : ${autores}"
-                                        th:value = "${autor.id}"
-                                        th:text = "${autor.nombre}"
-                                ></option>
-                            </select>
-
-                        </div>
-
-                        <br/>
-                        <button type="submit" class="btn btn-primary" th:text="${boton}"></button>
-                    </form>
-
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 </body>
 </html>

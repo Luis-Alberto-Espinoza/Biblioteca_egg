@@ -1,5 +1,6 @@
 package luis.libreria.servicio;
 
+import luis.libreria.entidad.Autor;
 import luis.libreria.entidad.Editorial;
 import luis.libreria.repositorio.EditorialRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +33,18 @@ public class EditorialServicio {
         editorialRepositorio.save(editorial);
     }
 
-    public void actualizar(Long id, String nombre) {
+    public void actualizar(Long id, String nombre, boolean alta) {
         Editorial editorial = BuscarEditorialxId(id);
         editorial.setNombre(nombre);
+        editorial.setAlta(alta);
         editorialRepositorio.save(editorial);
+    }
+
+    public void guardarAutor(String nombre) {
+        Editorial editorialNew = new Editorial();
+        editorialNew.setNombre(nombre);
+        editorialNew.setAlta(true);
+
+        editorialRepositorio.save(editorialNew);
     }
 }

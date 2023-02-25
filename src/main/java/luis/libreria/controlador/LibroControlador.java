@@ -34,7 +34,7 @@ public class LibroControlador {
     public String tablaLibros(ModelMap model) {
         List<Libro> libros = libroServicio.libroRepositorio.findAll();
         model.put("objetoAiterar", libros);
-        return "tabla";
+        return "libro_tabla";
     }
 
 
@@ -43,18 +43,17 @@ public class LibroControlador {
         List<Editorial> editoriales = editorialServicio.BuscarEditoriales();
         List<Autor> autores = autorServicio.buscarAutores();
 
-
         model.addAttribute("autores", autores);
         model.addAttribute("editoriales", editoriales);
 
-        model.addAttribute("alta_libro", "alta_libro");
+        model.addAttribute("alta", "alta_libro");
         model.addAttribute("formulario", "Formulario alta Libro");
         model.addAttribute("tituloFormulario", "Dar de alta al Libro");
         model.addAttribute("action", "/libro/alta");
         model.addAttribute("boton", "Registrar Libro");
 
 
-        return "alta";
+        return "libro_formulario";
     }
 
     @GetMapping(value = "/alta")
@@ -90,7 +89,6 @@ public class LibroControlador {
         List<Editorial> editoriales = editorialServicio.BuscarEditoriales();
         List<Autor> autores = autorServicio.buscarAutores();
 
-
         model.addAttribute("autores", autores);
         model.addAttribute("editoriales", editoriales);
 
@@ -98,14 +96,12 @@ public class LibroControlador {
         model.addAttribute("selected_autor", libro.getAutor().getNombre());
         model.addAttribute("selected_editorial", libro.getEditorial().getNombre());
 
-        model.addAttribute("alta_libro", "alta_libro");
+        model.addAttribute("update", "update_libro");
         model.addAttribute("formulario", "Formulario editar Libro");
         model.addAttribute("tituloFormulario", "Modificar datos de un Libro");
         model.addAttribute("action", "/libro/update");
         model.addAttribute("boton", "Actualizar Libro");
-
-
-        return "update";
+        return "libro_formulario";
     }
 
     @GetMapping("/update")
