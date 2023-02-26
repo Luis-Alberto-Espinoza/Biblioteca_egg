@@ -9,6 +9,7 @@ import luis.libreria.servicio.LibroServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class LibroControlador {
 
     @GetMapping("/tabla")
     public String tablaLibros(ModelMap model) {
-        List<Libro> libros = libroServicio.libroRepositorio.findAll();
+        List<Libro> libros = libroServicio.buscarTodos();
         model.put("objetoAiterar", libros);
         return "libro_tabla";
     }
@@ -114,8 +115,22 @@ public class LibroControlador {
                               @RequestParam String autor) {
         Autor autor1 = autorServicio.autorXid(Long.parseLong(autor));
         Editorial editorial1 = editorialServicio.BuscarEditorialxId(Long.parseLong(editorial));
-         libroServicio.ModificarLibro(id,titulo, isbn, anio, ejemplares, editorial1, autor1);
+        libroServicio.ModificarLibro(id, titulo, isbn, anio, ejemplares, editorial1, autor1);
         model.addAttribute("titulo", "genial fue el libro modificado");
         return "exito";
+    }
+
+    @GetMapping("/busqueda")
+    public String busquedaLibro(ModelMap model, @RequestParam(value = "query", required = false) String q) {
+        List<Libro> libros = libroServicio.findByTitulo(q);
+        System.out.println("cantidad de objetos " + libros.size());
+        model.addAttribute("objetoAiterar", libros);
+        return "/libro_busqueda";
+    }
+    @GetMapping("/prestar")
+    public String prestar(ModelMap model, @RequestParam(value = "id", required = false) Long id) {
+        Libro libros = libroServicio.findById(id);
+        model.addAttribute("objetoAiterar", libros);
+        return "/libro_busqueda";
     }
 }

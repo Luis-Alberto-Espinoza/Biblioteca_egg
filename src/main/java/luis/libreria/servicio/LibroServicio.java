@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,24 +19,17 @@ public class LibroServicio {
     @Autowired
     public LibroRepositorio libroRepositorio;
 
-    @Autowired
-    public AutorRepositorio autorRepositorio;
-
-    @Autowired
-    public EditorialRepositorio editorialRepositorio;
 
     public Libro buscarUno(Long id) {
         System.out.println("llegue a lbserv ");
-        System.out.println("este es el id  "+id );
+        System.out.println("este es el id  " + id);
 
-       Optional<Libro> libro = libroRepositorio.findById(id);
-return libro.get();
+        Optional<Libro> libro = libroRepositorio.findById(id);
+        return libro.get();
     }
 
-    public void buscarTodos() {
-        System.out.println("llegue a buscar a todos los linros ");
-        System.out.println("cant " + libroRepositorio.findAll().size());
-        System.out.println("el tercero " + libroRepositorio.findAll().get(2).getTitulo());
+    public List<Libro> buscarTodos() {
+        return libroRepositorio.findAll();
 
     }
 
@@ -54,6 +48,7 @@ return libro.get();
         libroRepositorio.save(libro);
 
     }
+
     public void ModificarLibro(Long id, String titulo, String isbn,
                                LocalDate anio, Integer ejemplares,
                                Editorial editorial, Autor autor) {
@@ -75,4 +70,13 @@ return libro.get();
     }
 
 
+    public List<Libro> findByTitulo(String q) {
+
+        return libroRepositorio.librosXtitulo(q);
+    }
+
+    public Libro findById(Long id) {
+        return libroRepositorio.libroXid(id);
+
+    }
 }

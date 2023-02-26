@@ -8,14 +8,6 @@
 <body>
 
 <section>
-
-    <div name="busqueda">
-        <form th:action="@{/libro/busqueda}">
-            <input type="search" name="query">
-            <button type="submit">search</button>
-
-        </form>
-    </div>
     <div class="container" style="padding-top: 100px">
         <div class="btn">-->
             <a th:href="@{/libro/pre_alta}" class="btn btn-primary btn-xl rounded-pill mt-5 ">¡Agrega un
@@ -37,8 +29,8 @@
                                 <th scope="col">ALTA</th>
                                 <th scope="col">AUTOR</th>
                                 <th scope="col">EDITORIAL</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">ACCIONES</th>
+
+
                             </tr>
                             </thead>
                             <tbody>
@@ -61,13 +53,8 @@
                                 </th>
                                 <td scope="row" th:text="${objetoAiterar.editorial.nombre}">
                                 </th>
-                                <td scope="row" th:text="${objetoAiterar.alta}">
-                                </th>
-                                <td>
-                                    <a th:href="@{/libro/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
-                                    <a th:href="@{/libro/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
-                                    <a th:href="@{/libro/perstar/(id=${objetoAiterar.id})}" class="btn btn-info">Prestar</a>
-                                </td>
+
+
                             </tr>
                             </tbody>
                         </table>
