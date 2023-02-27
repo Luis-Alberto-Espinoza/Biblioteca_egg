@@ -1,7 +1,6 @@
 package luis.libreria.servicio;
 
 import luis.libreria.entidad.Cliente;
-import luis.libreria.entidad.Editorial;
 import luis.libreria.repositorio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,5 +57,9 @@ public class ClienteServicio {
         Cliente cliente = buscarXid(id);
         cliente.setAlta(false);
         clienteRepositorio.save(cliente);
+    }
+
+    public List<Cliente> busquedaXstring(String q) {
+        return clienteRepositorio.buscarXstring(q);
     }
 }

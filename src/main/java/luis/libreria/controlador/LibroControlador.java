@@ -1,11 +1,10 @@
 package luis.libreria.controlador;
 
 import luis.libreria.entidad.Autor;
+import luis.libreria.entidad.Cliente;
 import luis.libreria.entidad.Editorial;
 import luis.libreria.entidad.Libro;
-import luis.libreria.servicio.AutorServicio;
-import luis.libreria.servicio.EditorialServicio;
-import luis.libreria.servicio.LibroServicio;
+import luis.libreria.servicio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -31,10 +30,17 @@ public class LibroControlador {
     EditorialServicio editorialServicio;
 
 
+    @Autowired
+    ClienteServicio clienteServicio;
+
+    @Autowired
+    PrestamoServicio prestamoServicio;
+
     @GetMapping("/tabla")
     public String tablaLibros(ModelMap model) {
         List<Libro> libros = libroServicio.buscarTodos();
         model.put("objetoAiterar", libros);
+        model.addAttribute("urlLend", "/libro/rango_fechas");
         return "libro_tabla";
     }
 
@@ -125,12 +131,74 @@ public class LibroControlador {
         List<Libro> libros = libroServicio.findByTitulo(q);
         System.out.println("cantidad de objetos " + libros.size());
         model.addAttribute("objetoAiterar", libros);
+        model.addAttribute("urlLend", "/libro/rango_fechas");
+
         return "/libro_busqueda";
     }
-    @GetMapping("/prestar")
-    public String prestar(ModelMap model, @RequestParam(value = "id", required = false) Long id) {
-        Libro libros = libroServicio.findById(id);
-        model.addAttribute("objetoAiterar", libros);
+
+    @GetMapping("/rango_fechas")
+    public String rango_fechas(ModelMap model, @RequestParam(value = "id_libro", required = false) Long id) {
+        Libro libro = libroServicio.buscarUno(id);
+        model.addAttribute("activar_rango", "activar_rango");
+        model.addAttribute("id_libro", id);
+        model.addAttribute("objetoAiterar", libro);
+        model.addAttribute("urlLend", "/libro/prestar");
+        model.addAttribute("action", "/libro/prestar");
+        model.addAttribute("boton", "Actualizar Libro");
+
         return "/libro_busqueda";
+    }
+
+
+    @GetMapping("/prestar")
+    public String prestar(ModelMap model,
+                          @RequestParam("prestamo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate prestamo,
+                          @RequestParam("devolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate devolucion,
+                          @RequestParam(value = "id_libro", required = false) Long id) {
+        System.out.println("llegue a prestar");
+        System.out.println("el id es " + id);
+        // Libro libros = libroServicio.findById(id);
+        //model.addAttribute("objetoAiterar", libros);
+        model.addAttribute("prestamo", prestamo);
+        model.addAttribute("devolucion", devolucion);
+        model.addAttribute("id_libro", id);
+        model.addAttribute("action", "/libro/prestar2");
+        model.addAttribute("boton", "Buscar Cliente");
+
+        return "/prestar";
+    }
+
+    @GetMapping("/prestar2")
+    public String prestar(ModelMap model, Long id_libro,
+                          @RequestParam("prestamo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate prestamo,
+                          @RequestParam("devolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate devolucion,
+                          @RequestParam(value = "query", required = false) String q) {
+        System.out.println("llegue a prestar 2");
+        System.out.println("el id del libro " + id_libro);
+        System.out.println("el query " + q);
+        List<Cliente> clientes = clienteServicio.busquedaXstring(q);
+        System.out.println("cantidad de registros encontrdo " + clientes.size());
+
+        model.addAttribute("prestamo", prestamo);
+        model.addAttribute("devolucion", devolucion);
+        model.addAttribute("id_libro", id_libro);
+        model.addAttribute("objetoAiterar", clientes);
+        model.addAttribute("urlLend", "/libro/prestar3");
+        return "clientes_prestar";
+    }
+
+    @GetMapping("/prestar3")
+    public String prestar3(ModelMap model, Long id_libro,
+                           @RequestParam("prestamo") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate prestamo,
+                           @RequestParam("devolucion") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate devolucion,
+                           @RequestParam(value = "id", required = false) Long id) {
+        System.out.println("llegue a prestar 3 ");
+        System.out.println("esto trae la fecha de prestamo " + prestamo);
+        System.out.println("id libro " + id_libro + "  id cliente " + id);
+//        LocalDate prestamo = "2023-03-15";
+        prestamoServicio.guardarPrestamo(prestamo, devolucion, String.valueOf(id), String.valueOf(id_libro));
+        model.addAttribute("titulo", "genial el libro fe prestado");
+
+        return "exito";
     }
 }

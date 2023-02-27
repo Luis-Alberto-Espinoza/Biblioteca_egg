@@ -29,6 +29,7 @@
                                 <th scope="col">ALTA</th>
                                 <th scope="col">AUTOR</th>
                                 <th scope="col">EDITORIAL</th>
+                                <th scope="col"></th>
 
 
                             </tr>
@@ -53,11 +54,23 @@
                                 </th>
                                 <td scope="row" th:text="${objetoAiterar.editorial.nombre}">
                                 </th>
+                                <td>
+                                    <a th:if="${activar_rango == null}"
+                                       th:href="@{${urlLend}(id_libro=${objetoAiterar.id})}" class="btn btn-danger">Prestar</a>
+                                </td>
 
 
                             </tr>
                             </tbody>
                         </table>
+                        <div th:if="${activar_rango != null}" name="activar_rango">
+                            <form th:action="${action}" method="GET" enctype="multipart/form-data">
+                                <input type="hidden" name="id_libro" th:value="${id_libro}">
+                                <input type="date" name="prestamo" id="prestamo" th:text="${prestamo}">
+                                <input type="date" name="devolucion" id="devolucion" th:text="${devolucion}">
+                                <button type="submit" class="btn btn-primary" th:text="${boton}"></button>
+
+                        </div>
                     </div>
                 </div>
             </div>

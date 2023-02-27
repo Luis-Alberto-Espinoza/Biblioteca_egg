@@ -34,7 +34,6 @@
                                 <th scope="col">AÑO DE PUBLICACIÓN</th>
                                 <th scope="col">EJEMPLARES</th>
                                 <th scope="col">STOCK</th>
-                                <th scope="col">ALTA</th>
                                 <th scope="col">AUTOR</th>
                                 <th scope="col">EDITORIAL</th>
                                 <th scope="col">Estado</th>
@@ -55,8 +54,6 @@
                                 </th>
                                 <td scope="row" th:text="${objetoAiterar.ejemplaresRestantes}">
                                 </th>
-                                <td scope="row" th:text="${objetoAiterar.alta}">
-                                </th>
                                 <td scope="row" th:text="${objetoAiterar.autor.nombre}">
                                 </th>
                                 <td scope="row" th:text="${objetoAiterar.editorial.nombre}">
@@ -66,7 +63,8 @@
                                 <td>
                                     <a th:href="@{/libro/pre_update/(id=${objetoAiterar.id})}" class="btn btn-danger">Editar</a>
                                     <a th:href="@{/libro/baja/(id=${objetoAiterar.id})}" class="btn btn-danger">Eliminar</a>
-                                    <a th:href="@{/libro/perstar/(id=${objetoAiterar.id})}" class="btn btn-info">Prestar</a>
+                                    <a th:href="@{${urlLend}(id_libro=${objetoAiterar.id})}" class="btn btn-danger">Prestar</a>
+
                                 </td>
                             </tr>
                             </tbody>
